@@ -17,6 +17,10 @@ const limiter = rateLimit({
 //  apply to all requests
 app.use(limiter);
 
+app.get('/', (req, res) => {
+  res.send('hello world');
+});
+
 var geocoder = nodeGeocoder({
   provider: 'opencage',
   apiKey: process.env.OPENCAGE_SECRET
