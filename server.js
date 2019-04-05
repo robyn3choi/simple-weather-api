@@ -10,6 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.enable("trust proxy"); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 min
   max: 30 // limit each IP to 30 requests per windowMs
