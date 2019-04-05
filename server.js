@@ -19,8 +19,6 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get('/', (req, res) => {
-  console.log("BLAHHHHHHHHHHH")
-  console.log(process.env.OPENCAGE_SECRET)
   res.send('hello world');
 });
 
@@ -88,16 +86,19 @@ const getCoordinates = (placename) => {
 // get weather data and place name from position
 app.get('/weather', (req, res) => {
   const placeName = geocoder.geocode(`${req.query.lat}, ${req.query.long}`)
-    .then(res => res[0].city + ', ' + res[0].state);
+    .then(res => res[0].city + ', ' + res[0].state)
+    .catch(err => console.log(err));
 
   const weatherData = getWeatherDataFromPosition(req.query.lat, req.query.long)
-    .then(result => result);
+    .then(result => result)
+    .catch(err => console.log(err));
 
   Promise.all([placeName, weatherData])
     .then(results => {
       results[1].placeName = results[0];
       res.send(results[1]);
-    });
+    })
+    .catch(err => console.log(err));
 });
 
 
