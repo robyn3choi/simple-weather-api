@@ -19,6 +19,8 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get('/', (req, res) => {
+  console.log("BLAHHHHHHHHHHH")
+  console.log(process.env.OPENCAGE_SECRET)
   res.send('hello world');
 });
 
